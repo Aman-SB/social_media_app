@@ -1,24 +1,45 @@
 package com.example.backend.Model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
+@Table(name = "User")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
-    private String username;
-    private String email;
-    private String password;
-    private String bio;
-    private String profilePictureURL;
-    private LocalDateTime registrationDate;
+    Integer userId;
 
-    // Getters and setters
+    @Column(nullable = false)
+    String firstName;
+
+    @Column(nullable = false)
+    String lastName;
+
+    @Column(unique = true ,nullable = false )
+    String email;
+
+    @Column(unique = true ,nullable = false )
+    String mobileNumber;
+
+    @Column(unique = true ,nullable = false )
+    String username;
+
+    @Column(nullable = false )
+    String password;
+
+    String bio;
+
+    String profilePictureURL;
+
 }
 
