@@ -3,7 +3,9 @@ package com.example.backend.Controller;
 import com.example.backend.Dto.Request.UserRequest;
 import com.example.backend.Dto.Response.UserResponse;
 import com.example.backend.Exception.NoUserPresentException;
+import com.example.backend.Exception.PersonAllreadyFollowException;
 import com.example.backend.Exception.UserNotFoundException;
+import com.example.backend.Model.User;
 import com.example.backend.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,7 +62,6 @@ public class UserController {
         }
     }
 
-    //test
     @DeleteMapping("/deleteUser")
     public ResponseEntity deleteUser(@RequestParam int userId){
         try {
@@ -80,9 +81,83 @@ public class UserController {
     }
 
     //update userbio with userid
+    //test
+    @PostMapping("/updateBio")
+    public ResponseEntity updateUserBio(@RequestParam int userId , @RequestBody String bio){
+        try{
+            UserResponse userResponse = userService.updateUserBio(userId,bio);
+            return new ResponseEntity(userResponse,HttpStatus.CONTINUE);
+        }
+        catch (UserNotFoundException e){
+            return new ResponseEntity(e.getMessage() , HttpStatus.NOT_FOUND);
+        }
+    }
 
     //update profile_picture with userid
+//test
+    @PutMapping("updateProfilePicture")
+    public ResponseEntity updateProfilePicture(@RequestParam int userId , @RequestBody String profilePicture){
+        try{
+            UserResponse userResponse = userService.updateProfilePicture(userId,profilePicture);
+            return new ResponseEntity(userResponse,HttpStatus.CONTINUE);
+        }
+        catch (UserNotFoundException e){
+            return new ResponseEntity(e.getMessage() , HttpStatus.NOT_FOUND);
+        }
+    }
 
-    //
+    //follow user
+    @PutMapping("/followUser")
+    public ResponseEntity followUser(@RequestParam int userId1,@RequestParam int userId2){
+        try{
+            Boolean followedOrNot = userService.followUser(userId1,userId2);
+            return new ResponseEntity(followedOrNot ? "Done Succefully" : "Unsuccesfull",HttpStatus.OK);
+        }
+        catch (UserNotFoundException e){
+            return new ResponseEntity(e.getMessage() , HttpStatus.NOT_FOUND);
+        }
+        catch (PersonAllreadyFollowException e){
+            return new ResponseEntity(e.getMessage() , HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    //followings user
+
+    //get all followers
+    @GetMapping("/getAllFollowers")
+    public ResponseEntity getAllFollowers(@RequestParam int userId){
+        try{
+            List<UserResponse> userResponseList = userService.getAllFollowers(userId);
+            return new ResponseEntity(userResponseList , HttpStatus.OK);
+        }
+        catch (UserNotFoundException e){
+            return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //get all followings
+    @GetMapping("/getAllFollowings")
+    public ResponseEntity getAllFollowings(@RequestParam int userId){
+        try{
+            List<UserResponse> userResponseList = userService.getAllFollowings(userId);
+            return new ResponseEntity(userResponseList , HttpStatus.OK);
+        }
+        catch (UserNotFoundException e){
+            return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //test
+    //not working
+    @GetMapping("/findUserByEmail")
+    public ResponseEntity findUserByEmail(@RequestBody String email){
+        try{
+            UserResponse userResponse = userService.findUserByEmail(email);
+            return new ResponseEntity(userResponse,HttpStatus.FOUND);
+        }
+        catch (UserNotFoundException e){
+            return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
 
 }

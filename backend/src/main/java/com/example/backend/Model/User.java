@@ -1,10 +1,12 @@
 package com.example.backend.Model;
 
+import com.example.backend.Enums.Gender;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -39,7 +41,14 @@ public class User {
 
     String bio;
 
+    @Enumerated(EnumType.STRING)
+    Gender gender;
+
     String profilePictureURL;
+
+    List<Integer> followers;
+
+    List<Integer> followings;
 
 }
 

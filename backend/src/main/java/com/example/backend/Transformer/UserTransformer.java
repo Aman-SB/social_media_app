@@ -10,6 +10,7 @@ public class UserTransformer {
                 .id(user.getUserId())
                 .userName(user.getUsername())
                 .lastName(user.getLastName())
+                .gender(user.getGender())
                 .firstName(user.getFirstName()).build();
     }
 
@@ -20,6 +21,7 @@ public class UserTransformer {
                 .mobileNumber(userRequest.getMobileNumber())
                 .username(userRequest.getUserName())
                 .email(userRequest.getEmail())
+                .gender(userRequest.getGender())
                 .password(userRequest.getPassword())
                 .bio(userRequest.getBio())
                 .profilePictureURL(userRequest.getProfilePictureURL()).build();

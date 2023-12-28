@@ -1,5 +1,6 @@
 package com.example.backend.Dto.Request;
 
+import com.example.backend.Enums.Gender;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -20,6 +21,8 @@ public class UserRequest {
     String userName;
 
     String bio;
+
+    Gender gender;
 
     String profilePictureURL;
 

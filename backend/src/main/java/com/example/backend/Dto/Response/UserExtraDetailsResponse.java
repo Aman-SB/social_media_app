@@ -1,23 +1,21 @@
 package com.example.backend.Dto.Response;
 
-import com.example.backend.Enums.Gender;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @SuperBuilder
-public class UserResponse {
-    int id;
+public class UserExtraDetailsResponse extends UserResponse{
+    String profilePictureURL;
 
-    String firstName;
+    List<Integer> followers;
 
-    String lastName;
-
-    String userName;
-
-    Gender gender;
+    List<Integer> followings;
 }
