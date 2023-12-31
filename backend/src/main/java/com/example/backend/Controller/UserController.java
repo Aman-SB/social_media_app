@@ -52,7 +52,7 @@ public class UserController {
 
     //test
     @PutMapping("/updateUser")
-    public ResponseEntity updateUser(@RequestParam int UserId , @RequestBody UserRequest userRequest){
+    public ResponseEntity updateUser(@RequestParam("userId") int UserId , @RequestBody UserRequest userRequest){
         try{
             UserResponse userResponse = userService.updateUser(UserId,userRequest);
             return new ResponseEntity(userResponse,HttpStatus.CREATED);
@@ -63,7 +63,7 @@ public class UserController {
     }
 
     @DeleteMapping("/deleteUser")
-    public ResponseEntity deleteUser(@RequestParam int userId){
+    public ResponseEntity deleteUser(@RequestParam("userId") int userId){
         try {
             if(userService.deleteUser(userId)){
                 return new ResponseEntity("User deleted Succefully" , HttpStatus.ACCEPTED);
@@ -83,7 +83,7 @@ public class UserController {
     //update userbio with userid
     //test
     @PostMapping("/updateBio")
-    public ResponseEntity updateUserBio(@RequestParam int userId , @RequestBody String bio){
+    public ResponseEntity updateUserBio(@RequestParam("userId") int userId , @RequestBody String bio){
         try{
             UserResponse userResponse = userService.updateUserBio(userId,bio);
             return new ResponseEntity(userResponse,HttpStatus.CONTINUE);
@@ -96,7 +96,7 @@ public class UserController {
     //update profile_picture with userid
 //test
     @PutMapping("updateProfilePicture")
-    public ResponseEntity updateProfilePicture(@RequestParam int userId , @RequestBody String profilePicture){
+    public ResponseEntity updateProfilePicture(@RequestParam("userId") int userId , @RequestBody String profilePicture){
         try{
             UserResponse userResponse = userService.updateProfilePicture(userId,profilePicture);
             return new ResponseEntity(userResponse,HttpStatus.CONTINUE);
@@ -108,7 +108,7 @@ public class UserController {
 
     //follow user
     @PutMapping("/followUser")
-    public ResponseEntity followUser(@RequestParam int userId1,@RequestParam int userId2){
+    public ResponseEntity followUser(@RequestParam("userId1") int userId1,@RequestParam("userId2") int userId2){
         try{
             Boolean followedOrNot = userService.followUser(userId1,userId2);
             return new ResponseEntity(followedOrNot ? "Done Succefully" : "Unsuccesfull",HttpStatus.OK);
@@ -125,7 +125,7 @@ public class UserController {
 
     //get all followers
     @GetMapping("/getAllFollowers")
-    public ResponseEntity getAllFollowers(@RequestParam int userId){
+    public ResponseEntity getAllFollowers(@RequestParam("userId") int userId){
         try{
             List<UserResponse> userResponseList = userService.getAllFollowers(userId);
             return new ResponseEntity(userResponseList , HttpStatus.OK);
@@ -137,7 +137,7 @@ public class UserController {
 
     //get all followings
     @GetMapping("/getAllFollowings")
-    public ResponseEntity getAllFollowings(@RequestParam int userId){
+    public ResponseEntity getAllFollowings(@RequestParam("userId") int userId){
         try{
             List<UserResponse> userResponseList = userService.getAllFollowings(userId);
             return new ResponseEntity(userResponseList , HttpStatus.OK);
@@ -154,6 +154,18 @@ public class UserController {
         try{
             UserResponse userResponse = userService.findUserByEmail(email);
             return new ResponseEntity(userResponse,HttpStatus.FOUND);
+        }
+        catch (UserNotFoundException e){
+            return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+    }
+
+    //search user
+    @GetMapping("/searchUser")
+    public ResponseEntity searchUser(@RequestParam("query") String query){
+        try{
+            List<UserResponse> userResponseList = userService.searchUser(query);
+            return new ResponseEntity(userResponseList,HttpStatus.FOUND);
         }
         catch (UserNotFoundException e){
             return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);

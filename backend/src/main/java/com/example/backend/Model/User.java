@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,19 +22,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer userId;
 
-    @Column(nullable = false)
     String firstName;
 
-    @Column(nullable = false)
     String lastName;
 
-    @Column(unique = true ,nullable = false )
+    @Column(unique = true,name = "email")
     String email;
 
-    @Column(unique = true ,nullable = false )
+    @Column(unique = true)
     String mobileNumber;
 
-    @Column(unique = true ,nullable = false )
+    @Column(unique = true)
     String username;
 
     @Column(nullable = false )
@@ -46,9 +45,9 @@ public class User {
 
     String profilePictureURL;
 
-    List<Integer> followers;
+    List<Integer> followers = new ArrayList<>();
 
-    List<Integer> followings;
+    List<Integer> followings = new ArrayList<>();
 
 }
 
