@@ -8,7 +8,6 @@ import com.example.backend.Exception.UserNotFoundException;
 import com.example.backend.Model.User;
 import com.example.backend.Repository.UserRepository;
 import com.example.backend.Transformer.UserTransformer;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -97,7 +96,6 @@ public class UserService {
         return UserTransformer.userToUserResponse(savedUser);
     }
 
-    @Transactional
     public boolean followUser(int userId, int followerId) {
         User user = findUserById(userId);
         User follow = findUserById(followerId);

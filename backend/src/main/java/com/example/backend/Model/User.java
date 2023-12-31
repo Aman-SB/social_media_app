@@ -4,8 +4,6 @@ import com.example.backend.Enums.Gender;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,19 +12,18 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Builder
-@Table(name = "User")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer userId;
+    int userId;
 
     String firstName;
 
     String lastName;
 
-    @Column(unique = true,name = "email")
+    @Column(unique = true)
     String email;
 
     @Column(unique = true)

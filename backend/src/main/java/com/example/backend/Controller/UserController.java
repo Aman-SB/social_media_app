@@ -147,10 +147,8 @@ public class UserController {
         }
     }
 
-    //test
-    //not working
     @GetMapping("/findUserByEmail")
-    public ResponseEntity findUserByEmail(@RequestBody String email){
+    public ResponseEntity findUserByEmail(@RequestParam String email){
         try{
             UserResponse userResponse = userService.findUserByEmail(email);
             return new ResponseEntity(userResponse,HttpStatus.FOUND);
