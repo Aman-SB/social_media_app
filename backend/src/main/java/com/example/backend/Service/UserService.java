@@ -11,7 +11,6 @@ import com.example.backend.Transformer.UserTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +20,7 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    private User findUserById(int userId){
+    public User findUserById(int userId){
         Optional<User> optionalUser = userRepository.findById(userId);
 
         if(!optionalUser.isPresent()){
@@ -70,7 +69,7 @@ public class UserService {
         existingUser.setUsername(userRequest.getUserName());
         existingUser.setBio(userRequest.getBio());
         existingUser.setEmail(userRequest.getEmail());
-        existingUser.setProfilePictureURL(userRequest.getProfilePictureURL());
+        existingUser.setProfilePicture(userRequest.getProfilePicture());
 
         User savedUser = userRepository.save(existingUser);
         return UserTransformer.userToUserResponse(savedUser);
@@ -91,7 +90,7 @@ public class UserService {
 
     public UserResponse updateProfilePicture(int userId, String profilePicture) {
         User user = findUserById(userId);
-        user.setProfilePictureURL(profilePicture);
+        user.setProfilePicture(profilePicture);
         User savedUser = userRepository.save(user);
         return UserTransformer.userToUserResponse(savedUser);
     }

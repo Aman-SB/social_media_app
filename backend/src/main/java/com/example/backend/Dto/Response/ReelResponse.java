@@ -1,9 +1,11 @@
 package com.example.backend.Dto.Response;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -12,10 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @SuperBuilder
-public class UserExtraDetailsResponse extends UserResponse{
-    String profilePictureURL;
+public class ReelResponse {
 
-    List<Integer> followers;
+    int reelId;
 
-    List<Integer> followings;
+    String title;
+
+    List<StoryResponse> stories;
 }

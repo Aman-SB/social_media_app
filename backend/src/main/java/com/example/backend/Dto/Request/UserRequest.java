@@ -24,7 +24,7 @@ public class UserRequest {
 
     Gender gender;
 
-    String profilePictureURL;
+    String profilePicture;
 
     String email;
 
