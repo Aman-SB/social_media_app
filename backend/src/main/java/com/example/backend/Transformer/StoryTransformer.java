@@ -19,7 +19,7 @@ public class StoryTransformer {
     }
 
     public static List<StoryResponse> listStoryToStoryResponse(List<Story> storyList){
-        if(storyList == null)return null;
+        if(storyList == null)return new ArrayList<>();
         List<StoryResponse> storyResponseList = new ArrayList<>();
         for(Story story : storyList){
             storyResponseList.add(storyToStoryResponse(story));

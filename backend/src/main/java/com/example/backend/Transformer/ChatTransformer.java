@@ -18,7 +18,7 @@ public class ChatTransformer {
     }
 
     public static Set<ChatResponse> mapChatToChatResponse(Set<Chat> chats){
-        if(chats == null)return null;
+        if(chats == null)return new HashSet<>();
         Set<ChatResponse> messageResponses = new HashSet<>();
         for(Chat chat : chats){
             messageResponses.add(chatToChatResponse(chat));

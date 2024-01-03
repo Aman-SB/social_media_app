@@ -28,7 +28,7 @@ public class Post {
 
     LocalDateTime createdAt;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     User user;
 
     @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)

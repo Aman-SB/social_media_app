@@ -48,16 +48,16 @@ public class User {
 
     Set<Integer> followings = new HashSet<>();
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     List<Post> posts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     List<Story> stories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     List<Reel> reels = new ArrayList<>();
 
     @ManyToMany(mappedBy = "likedUsers", cascade = {CascadeType.PERSIST, CascadeType.MERGE})

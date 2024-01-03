@@ -23,7 +23,7 @@ public class CommentTransformer {
     }
 
     public static Set<CommentResponse> mapCommentToCommentResponse(Set<Comment> comments){
-        if(comments == null)return null;
+        if(comments == null)return new HashSet<>();
         Set<CommentResponse> commentResponses = new HashSet<>();
         for(Comment comment : comments){
             commentResponses.add(CommentTransformer.commentToCommentResponse(comment));
@@ -32,7 +32,7 @@ public class CommentTransformer {
     }
 
     public static List<CommentResponse> listCommentToCommentResponse(List<Comment> comments){
-        if(comments == null)return null;
+        if(comments == null)return new ArrayList<>();
         List<CommentResponse> commentResponses = new ArrayList<>();
         for(Comment comment : comments){
             commentResponses.add(CommentTransformer.commentToCommentResponse(comment));

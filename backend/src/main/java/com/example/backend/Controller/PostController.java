@@ -2,6 +2,7 @@ package com.example.backend.Controller;
 
 import com.example.backend.Dto.Request.PostRequest;
 import com.example.backend.Dto.Response.PostResponse;
+import com.example.backend.Exception.PostIsNotValidException;
 import com.example.backend.Exception.UserNotFoundException;
 import com.example.backend.Model.Post;
 import com.example.backend.Service.PostService;
@@ -31,23 +32,27 @@ public class PostController {
 
     @GetMapping("/postByUserID")
     public ResponseEntity findPostByUserId(@RequestParam("postId") int postId,@RequestParam("userId") int userId){
-        try{
-            PostResponse postResponse = postService.findPostByUserId(postId,userId);
-            return new ResponseEntity(postResponse,HttpStatus.NOT_FOUND);
+        try {
+            PostResponse postResponse = postService.findPostByUserId(postId, userId);
+            return new ResponseEntity(postResponse, HttpStatus.FOUND);
+        }catch (PostIsNotValidException e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }catch (UserNotFoundException e){
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
-//    @DeleteMapping("/deletePost")
-//    public ResponseEntity deletePost(@RequestParam("postId") int postId,@RequestParam("userId") int userId){
-//        try{
-//            String isDeleted = postService.deletePost(postId,userId);
-//            return new ResponseEntity(,HttpStatus.NOT_FOUND);
-//        }catch (UserNotFoundException e){
-//            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @DeleteMapping("/deletePost")
+    public ResponseEntity deletePost(@RequestParam("postId") int postId,@RequestParam("userId") int userId){
+        try{
+            String isDeleted = postService.deletePost(postId,userId);
+            return new ResponseEntity(isDeleted,HttpStatus.NOT_FOUND);
+        }catch (PostIsNotValidException e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }catch (UserNotFoundException e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
 //
 //    @GetMapping("/postAllPost")
 //    public ResponseEntity findAllPost(@RequestParam("userId") int userId){

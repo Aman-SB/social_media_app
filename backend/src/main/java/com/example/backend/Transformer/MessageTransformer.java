@@ -23,7 +23,7 @@ public class MessageTransformer {
     }
 
     public static Set<MessageResponse> mapMessageToMessageResponse(Set<Message> messages){
-        if(messages == null)return null;
+        if(messages == null)return new HashSet<>();
         Set<MessageResponse> messageResponses = new HashSet<>();
         for(Message message : messages){
             messageResponses.add(messageToMessageResposne(message));
@@ -32,7 +32,7 @@ public class MessageTransformer {
     }
 
     public static List<MessageResponse> listMessageToMessageResponse(List<Message> messages){
-        if(messages == null)return null;
+        if(messages == null)return new ArrayList<>();
         List<MessageResponse> messageResponses = new ArrayList<>();
         for(Message message : messages){
             messageResponses.add(messageToMessageResposne(message));

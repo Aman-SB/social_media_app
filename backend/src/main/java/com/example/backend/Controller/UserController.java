@@ -91,7 +91,6 @@ public class UserController {
     }
 
     //update userbio with userid
-    //test
     @PostMapping("/updateBio")
     public ResponseEntity updateUserBio(@RequestParam("userId") int userId , @RequestBody String bio){
         try{
@@ -105,11 +104,11 @@ public class UserController {
 
     //update profile_picture with userid
 //test
-    @PutMapping("updateProfilePicture")
-    public ResponseEntity updateProfilePicture(@RequestParam("userId") int userId , @RequestBody String profilePicture){
+    @PutMapping("/updateProfilePicture")
+    public ResponseEntity updateProfilePicture(@RequestParam("userId") int userId , @RequestParam("url") String profilePicture){
         try{
             UserResponse userResponse = userService.updateProfilePicture(userId,profilePicture);
-            return new ResponseEntity(userResponse,HttpStatus.CONTINUE);
+            return new ResponseEntity(userResponse,HttpStatus.ACCEPTED);
         }
         catch (UserNotFoundException e){
             return new ResponseEntity(e.getMessage() , HttpStatus.NOT_FOUND);

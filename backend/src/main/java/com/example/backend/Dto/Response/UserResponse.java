@@ -47,9 +47,11 @@ public class UserResponse {
 
     Set<PostResponse> savedPosts;
 
+    Set<PostResponse> likedPost;
+
     List<MessageResponse> sentMessages;
 
     List<MessageResponse> receivedMessages;
 
-    Set<ChatResponse> groups;
+    Set<ChatResponse> chats;
 }

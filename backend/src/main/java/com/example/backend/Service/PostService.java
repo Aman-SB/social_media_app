@@ -47,21 +47,23 @@ public class PostService {
 
 
     public PostResponse findPostByUserId(int postId,int userId) {
-        Post post = postRepository.findByUserUserIdAndId(postId,userId);
-
-//        if (!optionalPost.isPresent()) {
-//            throw new UserNotFoundException("Post not found for postId=" + postId + " and userId=" + userId);
-//        }
-        if(post == null){
-            throw new UserNotFoundException("Post not found for postId=" + postId + " and userId=" + userId);        }
-
-//        Post post = optionalPost.get();
-
+        Optional<Post> optionalPost = postRepository.findByUserUserIdAndId(postId,userId);
+        if (!optionalPost.isPresent()) {
+            throw new PostIsNotValidException("Post not found for postId=" + postId + " and userId=" + userId);
+        }
+        Post post = optionalPost.get();
         return PostTransformer.postToPostResponse(post);
     }
 
-//    public String deletePost(int postId, int userId) {
-//    }
+    public String deletePost(int postId, int userId) {
+        Optional<Post> optionalPost = postRepository.findByUserUserIdAndId(postId,userId);
+        if(!optionalPost.isPresent()){
+            throw new PostIsNotValidException("Post not found for postId=" + postId + " and userId=" + userId);
+        }
+        Post post = optionalPost.get();
+        postRepository.delete(post);
+        return "Post is deleted";
+    }
 //
 //    public List<Post> findAllPost(int userId) {
 //    }

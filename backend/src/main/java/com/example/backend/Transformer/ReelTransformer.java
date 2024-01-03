@@ -17,8 +17,8 @@ public class ReelTransformer {
                 .build();
     }
 
-    public static List<ReelResponse> listStoryToStoryResponse(List<Reel> reelList){
-        if(reelList == null)return null;
+    public static List<ReelResponse> listReelToReelResponse(List<Reel> reelList){
+        if(reelList == null)return new ArrayList<>();
         List<ReelResponse> reelResponseList = new ArrayList<>();
         for(Reel story : reelList){
             reelResponseList.add(reelToReelResponse(story));
