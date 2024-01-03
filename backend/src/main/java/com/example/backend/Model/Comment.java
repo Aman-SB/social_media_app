@@ -22,9 +22,9 @@ public class Comment {
 
     LocalDateTime createdAt;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     Post post;
 }

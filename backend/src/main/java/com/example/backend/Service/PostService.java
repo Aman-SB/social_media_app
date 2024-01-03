@@ -3,6 +3,7 @@ package com.example.backend.Service;
 import com.example.backend.Dto.Request.PostRequest;
 import com.example.backend.Dto.Response.PostResponse;
 import com.example.backend.Exception.PostIsNotValidException;
+import com.example.backend.Exception.UserNotFoundException;
 import com.example.backend.Model.Post;
 import com.example.backend.Model.User;
 import com.example.backend.Repository.PostRepository;
@@ -45,20 +46,29 @@ public class PostService {
     }
 
 
-    public PostResponse findPostByPostId(int postId) {
-        Post post = findPostById(postId);
+    public PostResponse findPostByUserId(int postId,int userId) {
+        Post post = postRepository.findByUserUserIdAndId(postId,userId);
+
+//        if (!optionalPost.isPresent()) {
+//            throw new UserNotFoundException("Post not found for postId=" + postId + " and userId=" + userId);
+//        }
+        if(post == null){
+            throw new UserNotFoundException("Post not found for postId=" + postId + " and userId=" + userId);        }
+
+//        Post post = optionalPost.get();
+
         return PostTransformer.postToPostResponse(post);
     }
 
-    public String deletePost(int postId, int userId) {
-    }
-
-    public List<Post> findAllPost(int userId) {
-    }
-
-    public PostResponse savePost(int postId, int userId) {
-    }
-
-    public PostResponse likePost(int postId, int userId) {
-    }
+//    public String deletePost(int postId, int userId) {
+//    }
+//
+//    public List<Post> findAllPost(int userId) {
+//    }
+//
+//    public PostResponse savePost(int postId, int userId) {
+//    }
+//
+//    public PostResponse likePost(int postId, int userId) {
+//    }
 }

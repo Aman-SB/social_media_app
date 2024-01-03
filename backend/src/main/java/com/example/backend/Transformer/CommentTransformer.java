@@ -1,9 +1,7 @@
 package com.example.backend.Transformer;
 
 import com.example.backend.Dto.Response.CommentResponse;
-import com.example.backend.Dto.Response.GroupResponse;
 import com.example.backend.Model.Comment;
-import com.example.backend.Model.Group;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,6 +11,8 @@ import java.util.Set;
 public class CommentTransformer {
 
     public static CommentResponse commentToCommentResponse(Comment comment) {
+        if(comment == null)return null;
+
         return CommentResponse.builder()
                 .commentId(comment.getCommentId())
                 .text(comment.getText())
@@ -23,6 +23,7 @@ public class CommentTransformer {
     }
 
     public static Set<CommentResponse> mapCommentToCommentResponse(Set<Comment> comments){
+        if(comments == null)return null;
         Set<CommentResponse> commentResponses = new HashSet<>();
         for(Comment comment : comments){
             commentResponses.add(CommentTransformer.commentToCommentResponse(comment));
@@ -31,6 +32,7 @@ public class CommentTransformer {
     }
 
     public static List<CommentResponse> listCommentToCommentResponse(List<Comment> comments){
+        if(comments == null)return null;
         List<CommentResponse> commentResponses = new ArrayList<>();
         for(Comment comment : comments){
             commentResponses.add(CommentTransformer.commentToCommentResponse(comment));

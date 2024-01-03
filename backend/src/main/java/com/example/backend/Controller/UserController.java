@@ -4,6 +4,7 @@ import com.example.backend.Dto.Request.UserRequest;
 import com.example.backend.Dto.Response.UserResponse;
 import com.example.backend.Exception.NoUserPresentException;
 import com.example.backend.Exception.PersonAllreadyFollowException;
+import com.example.backend.Exception.PostIsNotValidException;
 import com.example.backend.Exception.UserNotFoundException;
 import com.example.backend.Model.User;
 import com.example.backend.Service.UserService;
@@ -23,9 +24,18 @@ public class UserController {
 
     @PostMapping("/createUser")
     public ResponseEntity createUser(@RequestBody UserRequest userRequest){
-        UserResponse userResponse = userService.createUser(userRequest);
-        return new ResponseEntity(userResponse,HttpStatus.CREATED);
+        try {
+            UserResponse userResponse = userService.createUser(userRequest);
+            return new ResponseEntity(userResponse,HttpStatus.CREATED);
+        }
+        catch (PostIsNotValidException e){
+            return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
+        catch (Exception e){
+            return new ResponseEntity(e.getMessage(),HttpStatus.NOT_FOUND);
+        }
     }
+
 
     @GetMapping("/{userId}")
     public ResponseEntity getUserByID(@PathVariable("userId") int userId){

@@ -8,6 +8,7 @@ import java.util.List;
 public class StoryTransformer {
 
     public static StoryResponse storyToStoryResponse(Story story) {
+        if(story == null)return null;
         return StoryResponse.builder()
                 .storyId(story.getStoryId())
                 .content(story.getContent())
@@ -18,6 +19,7 @@ public class StoryTransformer {
     }
 
     public static List<StoryResponse> listStoryToStoryResponse(List<Story> storyList){
+        if(storyList == null)return null;
         List<StoryResponse> storyResponseList = new ArrayList<>();
         for(Story story : storyList){
             storyResponseList.add(storyToStoryResponse(story));

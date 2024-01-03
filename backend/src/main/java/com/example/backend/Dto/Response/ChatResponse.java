@@ -14,11 +14,11 @@ import java.util.Set;
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @SuperBuilder
-public class GroupResponse {
+public class ChatResponse {
 
-    int groupId;
+    int chatId;
 
-    String groupName;
+    String chatName;
 
     Set<MessageResponse> messages;
 

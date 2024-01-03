@@ -24,7 +24,7 @@ public class Reel {
 
     LocalDateTime createdAt;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     User user;
 
     @OneToMany(mappedBy = "reel")

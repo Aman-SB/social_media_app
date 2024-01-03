@@ -4,6 +4,7 @@ import com.example.backend.Dto.Request.UserRequest;
 import com.example.backend.Dto.Response.UserResponse;
 import com.example.backend.Exception.NoUserPresentException;
 import com.example.backend.Exception.PersonAllreadyFollowException;
+import com.example.backend.Exception.PostIsNotValidException;
 import com.example.backend.Exception.UserNotFoundException;
 import com.example.backend.Model.User;
 import com.example.backend.Repository.UserRepository;
@@ -11,9 +12,7 @@ import com.example.backend.Transformer.UserTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -54,9 +53,12 @@ public class UserService {
     public UserResponse createUser(UserRequest userRequest) {
         User user = UserTransformer.userRequestToUser(userRequest);
 
-        User saveUser = userRepository.save(user);
-
-        return UserTransformer.userToUserResponse(saveUser);
+        if (user.getPosts() == null) {
+                User savedUser = userRepository.save(user);
+                return UserTransformer.userToUserResponse(savedUser);
+        } else {
+            throw new PostIsNotValidException("Posts field must be null for new users with default initialization");
+        }
     }
 
     public UserResponse updateUser(int userId , UserRequest userRequest) {
@@ -98,19 +100,19 @@ public class UserService {
     public boolean followUser(int userId, int followerId) {
         User user = findUserById(userId);
         User follow = findUserById(followerId);
-        List<Integer> userFollowers = user.getFollowers();
+        Set<Integer> userFollowers = user.getFollowers();
         if(userFollowers != null && userFollowers.contains(followerId)){
             throw new PersonAllreadyFollowException("Person Already Followed");
         }
         if(userFollowers == null){
-            userFollowers = new ArrayList<>();
+            userFollowers = new HashSet<>();
         }
         userFollowers.add(followerId);
         user.setFollowers(userFollowers);
 
-        List<Integer> followFollowings = follow.getFollowings();
+        Set<Integer> followFollowings = follow.getFollowings();
         if(followFollowings == null){
-            followFollowings = new ArrayList<>();
+            followFollowings = new HashSet<>();
         }
         followFollowings.add(userId);
         follow.setFollowings(followFollowings);
@@ -123,7 +125,7 @@ public class UserService {
 
     public List<UserResponse> getAllFollowers(int userId) {
         User user = findUserById(userId);
-        List<Integer> userFollowerList = user.getFollowers();
+        Set<Integer> userFollowerList = user.getFollowers();
         List<UserResponse> userResponseList = new ArrayList<>();
         for(int id : userFollowerList){
             userResponseList.add(UserTransformer.userToUserResponse(findUserById(id)));
@@ -133,7 +135,7 @@ public class UserService {
 
     public List<UserResponse> getAllFollowings(int userId) {
         User user = findUserById(userId);
-        List<Integer> userFollowingList = user.getFollowings();
+        Set<Integer> userFollowingList = user.getFollowings();
         List<UserResponse> userResponseList = new ArrayList<>();
         for(int id : userFollowingList){
             userResponseList.add(UserTransformer.userToUserResponse(findUserById(id)));

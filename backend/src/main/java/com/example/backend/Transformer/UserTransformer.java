@@ -2,15 +2,18 @@ package com.example.backend.Transformer;
 
 import com.example.backend.Dto.Request.UserRequest;
 import com.example.backend.Dto.Response.UserResponse;
+import com.example.backend.Model.Post;
 import com.example.backend.Model.User;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class UserTransformer {
     public static UserResponse userToUserResponse(User user){
+        if(user == null)return null;
         return UserResponse.builder()
                 .userId(user.getUserId())
                 .firstName(user.getFirstName())
@@ -27,14 +30,15 @@ public class UserTransformer {
                 .comments(CommentTransformer.listCommentToCommentResponse(user.getComments()))
                 .stories(StoryTransformer.listStoryToStoryResponse(user.getStories()))
                 .reels(ReelTransformer.listStoryToStoryResponse(user.getReels()))
-                .savedPosts(PostTransformer.listUserToUserResponse(user.getSavedPosts()))
+                .savedPosts(PostTransformer.mapUserToUserResponse(user.getSavedPosts()))
                 .sentMessages(MessageTransformer.listMessageToMessageResponse(user.getSentMessages()))
                 .receivedMessages(MessageTransformer.listMessageToMessageResponse(user.getReceivedMessages()))
-                .groups(GroupTransformer.mapMessageToMessageResponse(user.getGroups()))
+                .groups(ChatTransformer.mapChatToChatResponse(user.getChat()))
                 .build();
     }
 
     public static User userRequestToUser(UserRequest userRequest){
+
         return User.builder()
                 .firstName(userRequest.getFirstName())
                 .lastName(userRequest.getLastName())
@@ -48,6 +52,7 @@ public class UserTransformer {
     }
 
     public static Set<UserResponse> mapUserToUserResponse(Set<User> users){
+        if(users == null)return null;
         Set<UserResponse> userResponses = new HashSet<>();
         for(User user : users){
             userResponses.add(userToUserResponse(user));
@@ -56,6 +61,7 @@ public class UserTransformer {
     }
 
     public static List<UserResponse> listUserToUserResponse(List<User> users){
+        if(users == null)return null;
         List<UserResponse> userResponses = new ArrayList<>();
         for(User user : users){
             userResponses.add(userToUserResponse(user));

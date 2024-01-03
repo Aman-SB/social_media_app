@@ -28,21 +28,22 @@ public class Post {
 
     LocalDateTime createdAt;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     User user;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
     Set<Comment> comments = new HashSet<>();
 
-    @ManyToMany(mappedBy = "savedPosts")
-    Set<User> savedByUsers = new HashSet<>();
-
-    @ManyToMany
-    @JoinTable(
-            name = "post_likes",
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "post_liked_users",
             joinColumns = @JoinColumn(name = "post_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    Set<User> likes = new HashSet<>();
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    Set<User> likedUsers = new HashSet<>();
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "post_saved_users",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    Set<User> savedUsers = new HashSet<>();
 
 }

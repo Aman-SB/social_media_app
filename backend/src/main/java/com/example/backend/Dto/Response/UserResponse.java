@@ -33,9 +33,9 @@ public class UserResponse {
 
     String profilePicture;
 
-    List<Integer> followers;
+    Set<Integer> followers;
 
-    List<Integer> followings;
+    Set<Integer> followings;
 
     List<PostResponse> posts;
 
@@ -45,11 +45,11 @@ public class UserResponse {
 
     List<ReelResponse> reels;
 
-    List<PostResponse> savedPosts;
+    Set<PostResponse> savedPosts;
 
     List<MessageResponse> sentMessages;
 
     List<MessageResponse> receivedMessages;
 
-    Set<GroupResponse> groups;
+    Set<ChatResponse> groups;
 }

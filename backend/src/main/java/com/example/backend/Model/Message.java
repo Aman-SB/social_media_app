@@ -21,12 +21,15 @@ public class Message {
 
     LocalDateTime createdAt;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sender_id")
     User sender;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "receiver_id")
     User receiver;
 
-    @ManyToOne
-    Group group;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "chatId")
+    Chat chat;
 }

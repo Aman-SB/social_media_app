@@ -30,53 +30,53 @@ public class PostController {
     }
 
     @GetMapping("/postByUserID")
-    public ResponseEntity findPostByPostId(@RequestParam("postId") int postId){
+    public ResponseEntity findPostByUserId(@RequestParam("postId") int postId,@RequestParam("userId") int userId){
         try{
-            PostResponse postResponse = postService.findPostByPostId(postId);
+            PostResponse postResponse = postService.findPostByUserId(postId,userId);
             return new ResponseEntity(postResponse,HttpStatus.NOT_FOUND);
         }catch (UserNotFoundException e){
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/deletePost")
-    public ResponseEntity deletePost(@RequestParam("postId") int postId,@RequestParam("userId") int userId){
-        try{
-            String isDeleted = postService.deletePost(postId,userId);
-            return new ResponseEntity(,HttpStatus.NOT_FOUND);
-        }catch (UserNotFoundException e){
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @GetMapping("/postAllPost")
-    public ResponseEntity findAllPost(@RequestParam("userId") int userId){
-        try{
-            List<Post> postList = postService.findAllPost(userId);
-            return new ResponseEntity(,HttpStatus.NOT_FOUND);
-        }catch (UserNotFoundException e){
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @PutMapping("/savePost")
-    public ResponseEntity savePost(@RequestParam("postId") int postId,@RequestParam("userId") int userId){
-        try{
-            PostResponse responsePost = postService.savePost(postId,userId);
-            return new ResponseEntity(,HttpStatus.NOT_FOUND);
-        }catch (UserNotFoundException e){
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @PutMapping("/postAllPost")
-    public ResponseEntity likePost(@RequestParam("postId") int postId,@RequestParam("userId") int userId){
-        try{
-            PostResponse reponsePost = postService.likePost(postId,userId);
-            return new ResponseEntity(,HttpStatus.NOT_FOUND);
-        }catch (UserNotFoundException e){
-            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
-    }
+//    @DeleteMapping("/deletePost")
+//    public ResponseEntity deletePost(@RequestParam("postId") int postId,@RequestParam("userId") int userId){
+//        try{
+//            String isDeleted = postService.deletePost(postId,userId);
+//            return new ResponseEntity(,HttpStatus.NOT_FOUND);
+//        }catch (UserNotFoundException e){
+//            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+//        }
+//    }
+//
+//    @GetMapping("/postAllPost")
+//    public ResponseEntity findAllPost(@RequestParam("userId") int userId){
+//        try{
+//            List<Post> postList = postService.findAllPost(userId);
+//            return new ResponseEntity(,HttpStatus.NOT_FOUND);
+//        }catch (UserNotFoundException e){
+//            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+//        }
+//    }
+//
+//    @PutMapping("/savePost")
+//    public ResponseEntity savePost(@RequestParam("postId") int postId,@RequestParam("userId") int userId){
+//        try{
+//            PostResponse responsePost = postService.savePost(postId,userId);
+//            return new ResponseEntity(,HttpStatus.NOT_FOUND);
+//        }catch (UserNotFoundException e){
+//            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+//        }
+//    }
+//
+//    @PutMapping("/postAllPost")
+//    public ResponseEntity likePost(@RequestParam("postId") int postId,@RequestParam("userId") int userId){
+//        try{
+//            PostResponse reponsePost = postService.likePost(postId,userId);
+//            return new ResponseEntity(,HttpStatus.NOT_FOUND);
+//        }catch (UserNotFoundException e){
+//            return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
+//        }
+//    }
 
 }

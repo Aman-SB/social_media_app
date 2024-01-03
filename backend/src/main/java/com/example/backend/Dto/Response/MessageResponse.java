@@ -26,6 +26,6 @@ public class MessageResponse {
 
     UserResponse receiver;
 
-    GroupResponse group;
+    ChatResponse group;
 
 }

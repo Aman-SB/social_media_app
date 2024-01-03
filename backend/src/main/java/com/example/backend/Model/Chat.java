@@ -13,15 +13,15 @@ import java.util.Set;
 @Data
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Group {
+public class Chat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int groupId;
+    int chatId;
 
-    String groupName;
+    String chatName;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "chat",cascade = CascadeType.ALL)
     Set<Message> messages = new HashSet<>();
 
     @ManyToMany

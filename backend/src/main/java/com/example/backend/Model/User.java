@@ -44,33 +44,36 @@ public class User {
 
     String profilePicture;
 
-    List<Integer> followers = new ArrayList<>();
+    Set<Integer> followers = new HashSet<>();
 
-    List<Integer> followings = new ArrayList<>();
+    Set<Integer> followings = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     List<Post> posts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     List<Story> stories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     List<Reel> reels = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "savedByUsers")
-    List<Post> savedPosts = new ArrayList<>();
+    @ManyToMany(mappedBy = "likedUsers", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    Set<Post> likedPosts = new HashSet<>();
 
-    @OneToMany(mappedBy = "sender")
+    @ManyToMany(mappedBy = "savedUsers", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    Set<Post> savedPosts = new HashSet<>();
+
+    @OneToMany(mappedBy = "sender",cascade = CascadeType.ALL)
     List<Message> sentMessages = new ArrayList<>();
 
-    @OneToMany(mappedBy = "receiver")
+    @OneToMany(mappedBy = "receiver",cascade = CascadeType.ALL)
     List<Message> receivedMessages = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "members")
-    Set<Group> groups = new HashSet<>();
+    @ManyToMany(mappedBy = "members",cascade = CascadeType.ALL)
+    Set<Chat> chat = new HashSet<>();
 
 
 }

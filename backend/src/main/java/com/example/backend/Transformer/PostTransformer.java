@@ -12,6 +12,7 @@ import java.util.Set;
 public class PostTransformer {
 
     public static PostResponse postToPostResponse(Post post){
+        if(post == null)return null;
         return PostResponse.builder().id(post.getId())
                 .caption(post.getCaption())
                 .image(post.getImage())
@@ -19,8 +20,8 @@ public class PostTransformer {
                 .createdAt(post.getCreatedAt())
                 .user(UserTransformer.userToUserResponse(post.getUser()))
                 .comments(CommentTransformer.mapCommentToCommentResponse(post.getComments()))
-                .savedByUsers(UserTransformer.mapUserToUserResponse(post.getSavedByUsers()))
-                .likes(UserTransformer.mapUserToUserResponse(post.getLikes()))
+                .savedByUsers(UserTransformer.mapUserToUserResponse(post.getSavedUsers()))
+                .likes(UserTransformer.mapUserToUserResponse(post.getLikedUsers()))
                 .build();
     }
 
@@ -33,7 +34,17 @@ public class PostTransformer {
     }
 
     public static List<PostResponse> listUserToUserResponse(List<Post> posts){
+        if(posts == null)return null;
         List<PostResponse> userResponses = new ArrayList<>();
+        for(Post post : posts){
+            userResponses.add(postToPostResponse(post));
+        }
+        return userResponses;
+    }
+
+    public static Set<PostResponse> mapUserToUserResponse(Set<Post> posts){
+        if(posts == null)return null;
+        Set<PostResponse> userResponses = new HashSet<>();
         for(Post post : posts){
             userResponses.add(postToPostResponse(post));
         }

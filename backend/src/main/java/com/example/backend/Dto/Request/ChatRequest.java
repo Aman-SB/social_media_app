@@ -10,9 +10,9 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-public class GroupRequest {
+public class ChatRequest {
 
-    String groupName;
+    String chatName;
 
     Set<Integer> memberIds;
 }
